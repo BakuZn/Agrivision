@@ -9,16 +9,16 @@ AgriVision serves as an agricultural assistant, offering farmers a central hub f
 ## 🎯 Features
 
 🔹 **Market Page**  
-Displays a mockup layout for real-time crop pricing across different regions.
+Displays  real-time crop pricing across different regions in india using government public regional mandi API's. Also has feature to filter search by state, district,city and crop.
 
 🔹 **Disease Detection Page**  
 Provides awareness about common crop diseases using placeholder cards—designed for future integration with AI-based image detection.
 
 🔹 **Weather Page**  
-Offers a basic layout to present local weather conditions relevant to farming.
+Offers a basic layout to present local weather conditions of any city and presents data relevant to farming. Weather data is gathered thru OpenWeather API.
 
 🔹 **Support Page**  
-Connects users to assistance, with scope for future inclusion of voice/video call or chatbot help.
+Connects users to assistance, with scope for future inclusion of  chatbot help.
 
 Each page is styled with a minimal, nature-inspired CSS theme and is optimized for rural accessibility.
 
