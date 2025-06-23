@@ -24,7 +24,7 @@ Each page is styled with a minimal, nature-inspired CSS theme and is optimized f
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** HTML5, CSS3  
+- **Frontend:** HTML5, CSS3,JS,APIs 
 - **Design:** Clean card layouts, nature-themed green palette (#2e7d32), and light animations
 
 > Note: This is a UI-only prototype. No backend or database is integrated yet.
