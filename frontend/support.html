@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Support - AgriVision</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .support-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        background: #ffffff;
+        border: 2px solid #a5d6a7;
+        border-radius: 8px;
+        padding: 2rem;
+      }
+
+      h2 {
+        color: #2e7d32;
+      }
+
+      label,
+      input,
+      textarea {
+        display: block;
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      input,
+      textarea {
+        padding: 0.7rem;
+        border: 2px solid #c8e6c9;
+        border-radius: 5px;
+      }
+
+      button {
+        margin-top: 1rem;
+        padding: 0.7rem 1.2rem;
+        background: #2e7d32;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #388e3c;
+      }
+
+      .faq-section {
+        margin-top: 3rem;
+      }
+
+      details {
+        margin-bottom: 1rem;
+        border: 1px solid #a5d6a7;
+        border-radius: 5px;
+        padding: 1rem;
+        background: #f1f8e9;
+      }
+
+      summary {
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .contact-btn {
+        display: block;
+        margin-top: 2rem;
+        text-align: center;
+      }
+
+      .contact-btn button {
+        background-color: #6d4c41;
+      }
+
+      .contact-btn button:hover {
+        background-color: #5d4037;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>💬 AgriVision Support</h1>
+      <p>Need help? We're here for you.</p>
+    </header>
+
+    <div class="support-container">
+      <h2>Submit Your Query</h2>
+      <form>
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+
+        <label for="email">Your Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          required
+        />
+
+        <label for="message">Message</label>
+        <textarea
+          id="message"
+          rows="5"
+          placeholder="How can we help?"
+          required
+        ></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+
+      <div class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+
+        <details>
+          <summary>How do I check market prices?</summary>
+          <p>Go to the Market page and filter by crop or city.</p>
+        </details>
+
+        <details>
+          <summary>How does disease detection work?</summary>
+          <p>
+            Upload a plant image and the tool will predict any visible diseases.
+          </p>
+        </details>
+
+        <details>
+          <summary>Is this free to use?</summary>
+          <p>
+            Yes, AgriVision is a free educational tool developed by Daksh Joshi.
+          </p>
+        </details>
+      </div>
+
+      <div class="contact-btn">
+        <button onclick="alert('Contacting Daksh Joshi...')">
+          📞 Contact Daksh Joshi
+        </button>
+      </div>
+    </div>
+
+    <footer>ⓒ 2025 AgriVision | Designed with care by Daksh Joshi</footer>
+  </body>
+</html>

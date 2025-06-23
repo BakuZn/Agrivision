@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Market Prices | AgriVision</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      #marketCards .card {
+        border: 1px solid #a5d6a7;
+        border-left: 6px solid #795548;
+        padding: 1rem;
+        margin: 0.5rem;
+        display: inline-block;
+        width: 200px;
+        vertical-align: top;
+        background: #fff;
+        text-align: center;
+      }
+      #weatherImpact {
+        margin-top: 1rem;
+        font-size: 1rem;
+        color: #0288d1;
+      }
+      select {
+        padding: 0.5rem;
+        margin: 0.5rem;
+      }
+      .filter-row {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>📈 Market Prices</h1>
+      <p>Check the latest crop prices in your state</p>
+    </header>
+
+    <main style="padding: 2rem">
+      <div class="filter-row">
+        <label for="stateFilter">Filter by State:</label>
+        <select id="stateFilter" onchange="filterCitiesAndCards()">
+          <option value="">All</option>
+        </select>
+        <label for="cityFilter">Filter by City:</label>
+        <select id="cityFilter" onchange="filterCards()">
+          <option value="">All</option>
+        </select>
+        <label for="commodityFilter">Filter by Commodity:</label>
+        <select id="commodityFilter" onchange="filterCards()">
+          <option value="">All</option>
+        </select>
+      </div>
+      <br />
+      <div id="marketCards"></div>
+      <div id="weatherImpact"></div>
+      <br />
+      <a href="index.html">← Back to Home</a>
+    </main>
+
+    <footer>
+      ⓒ 2025 AgriVision | Empowering Farmers with Insightful Tools
+    </footer>
+
+    <script>
+      const apiUrl =
+        "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b&format=json&limit=100";
+      let allData = [];
+
+      fetch(apiUrl)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.records); // Debug: Check full dataset
+          allData = data.records || [];
+          populateFilters(allData);
+          displayCards(allData);
+          showWeatherImpact(
+            allData.length > 0 ? allData[0].state || "Delhi" : "Delhi"
+          );
+        })
+        .catch(
+          (err) =>
+            (document.getElementById(
+              "marketCards"
+            ).innerHTML = `<p style='color:red;'>Error: ${err.message}</p>`)
+        );
+
+      function populateFilters(data) {
+        // Populate state filter
+        const states = [...new Set(data.map((item) => item.state))].sort();
+        const stateFilter = document.getElementById("stateFilter");
+        stateFilter.innerHTML =
+          '<option value="">All</option>' +
+          states
+            .map((state) => `<option value="${state}">${state}</option>`)
+            .join("");
+
+        // Initially populate city filter with all cities
+        const cities = [...new Set(data.map((item) => item.market))].sort();
+        const cityFilter = document.getElementById("cityFilter");
+        cityFilter.innerHTML =
+          '<option value="">All</option>' +
+          cities
+            .map((city) => `<option value="${city}">${city}</option>`)
+            .join("");
+
+        // Populate commodity filter
+        const commodities = [
+          ...new Set(data.map((item) => item.commodity)),
+        ].sort();
+        const commodityFilter = document.getElementById("commodityFilter");
+        commodityFilter.innerHTML =
+          '<option value="">All</option>' +
+          commodities
+            .map(
+              (commodity) =>
+                `<option value="${commodity}">${commodity}</option>`
+            )
+            .join("");
+      }
+
+      function filterCitiesAndCards() {
+        const state = document.getElementById("stateFilter").value;
+        const cityFilter = document.getElementById("cityFilter");
+        const filteredCities = state
+          ? [
+              ...new Set(
+                allData
+                  .filter((item) => item.state === state)
+                  .map((item) => item.market)
+              ),
+            ].sort()
+          : [...new Set(allData.map((item) => item.market))].sort();
+        cityFilter.innerHTML =
+          '<option value="">All</option>' +
+          filteredCities
+            .map((city) => `<option value="${city}">${city}</option>`)
+            .join("");
+        filterCards(); // Update cards based on new city filter
+      }
+
+      function filterCards() {
+        const state = document.getElementById("stateFilter").value;
+        const city = document.getElementById("cityFilter").value;
+        const commodity = document.getElementById("commodityFilter").value;
+        const filteredData = allData.filter(
+          (item) =>
+            (!state || item.state === state) &&
+            (!city || item.market === city) &&
+            (!commodity || item.commodity === commodity)
+        );
+        displayCards(filteredData);
+        showWeatherImpact(
+          filteredData.length > 0 ? filteredData[0].state || "Delhi" : "Delhi"
+        );
+      }
+
+      function displayCards(data) {
+        const container = document.getElementById("marketCards");
+        container.innerHTML =
+          data.length === 0
+            ? "<p style='text-align:center;'>No results found.</p>"
+            : data
+                .map(
+                  (item) => `
+          <div class="card">
+            <h3>${item.commodity}</h3>
+            <p>Market: ${item.market}</p>
+            <p>State: ${item.state}</p>
+            <p>Price: ₹${item.modal_price || "N/A"}</p>
+            <p>Date: ${item.arrival_date || "N/A"}</p>
+          </div>
+        `
+                )
+                .join("");
+      }
+
+      async function showWeatherImpact(location) {
+        const weatherData = await getWeatherForCorrelation(location);
+        const weatherImpactDiv = document.getElementById("weatherImpact");
+        const totalRain = weatherData.reduce(
+          (sum, forecast) => sum + (forecast.rain ? forecast.rain["3h"] : 0),
+          0
+        );
+
+        let impact = "";
+        if (totalRain > 50) {
+          impact = `Heavy rain in ${location} may reduce crop supply (e.g., tomatoes), potentially increasing prices.`;
+        } else if (totalRain < 10) {
+          impact = `Low rainfall in ${location} may stress crops, possibly affecting supply and prices.`;
+        } else {
+          impact = `Moderate weather in ${location} likely to maintain stable crop supply and prices.`;
+        }
+        weatherImpactDiv.innerHTML = impact;
+      }
+
+      async function getWeatherForCorrelation(city) {
+        const units = "metric";
+        const apiKey = "948be06921dc1d1d744418924cd429f5";
+        const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${units}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.list.slice(0, 5);
+      }
+    </script>
+  </body>
+</html>

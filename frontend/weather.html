@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Advisory | AgriVision</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      #weatherResult .forecast-day {
+        border-bottom: 1px solid #a5d6a7;
+        padding: 1rem 0;
+      }
+      #weatherResult .forecast-day:last-child {
+        border-bottom: none;
+      }
+      #favorites button {
+        margin: 0.5rem;
+        padding: 0.5rem;
+        background: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #favorites button:hover {
+        background: #388e3c;
+      }
+      .alert {
+        color: red;
+        font-weight: bold;
+      }
+      #weatherChart {
+        max-width: 768px; /* ~8 inches at 96 DPI */
+        max-height: 384px; /* Proportional height (2:1 ratio) */
+        margin: 1rem auto; /* Center it */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>🌦 Weather Forecast</h1>
+      <p>Get your city's 5-day forecast for better crop planning</p>
+    </header>
+
+    <main style="text-align: center; padding: 2rem">
+      <input type="text" id="cityInput" placeholder="Enter city name" />
+      <select id="unitSelect">
+        <option value="metric">°C, mm</option>
+        <option value="imperial">°F, inches</option>
+      </select>
+      <button onclick="getWeather()">Check Weather</button>
+      <button onclick="saveCity()">Save City</button>
+      <br /><br />
+      <div id="favorites"></div>
+      <br />
+      <canvas id="weatherChart"></canvas>
+      <!-- Chart above forecasts -->
+      <div id="weatherResult"></div>
+      <br />
+      <a href="index.html">← Back to Home</a>
+    </main>
+
+    <script src="js/weather.js"></script>
+  </body>
+</html>

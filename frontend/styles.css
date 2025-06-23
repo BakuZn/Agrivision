@@ -1,0 +1,137 @@
+/* Base Styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f9f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background: #2e7d32;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.card {
+  background: #fff;
+  border: 2px solid #a5d6a7;
+  border-left: 6px solid #795548;
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 8px;
+  transition: 0.3s;
+  text-decoration: none;
+  color: #2e7d32;
+}
+
+.card:hover {
+  background: #e8f5e9;
+  transform: scale(1.03);
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #dcedc8;
+  color: #333;
+}
+
+/* Section Layouts */
+.section {
+  padding: 2rem;
+}
+
+.section h2 {
+  color: #2e7d32;
+  margin-bottom: 1rem;
+}
+
+.section p {
+  margin-bottom: 1.2rem;
+}
+
+/* Form Inputs */
+input[type="text"],
+input[type="file"],
+select {
+  padding: 0.6rem;
+  margin: 0.5rem 0;
+  border: 2px solid #a5d6a7;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+button,
+input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  background-color: #388e3c;
+}
+
+/* Support / Chat */
+.chat-box,
+.contact-form {
+  border: 1px solid #a5d6a7;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #fff;
+  margin-bottom: 2rem;
+}
+
+.faq {
+  margin-top: 1.5rem;
+}
+
+.faq h3 {
+  margin: 0.5rem 0;
+  color: #5d4037;
+}
+
+/* Back links */
+a.back-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: #6a1b9a;
+  text-decoration: none;
+}
+
+a.back-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Utilities */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.center {
+  text-align: center;
+}
